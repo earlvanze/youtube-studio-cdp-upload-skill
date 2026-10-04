@@ -1,0 +1,3 @@
+interface:
+  display_name: "YouTube Studio Upload"
+  short_description: "Publish a validated local video via existing Studio"
