@@ -21,7 +21,7 @@ Publish one already-approved local video at a time using the authenticated brows
 2. Start one upload and wait until Studio reaches the details step. Set its title and complete description, select the requested audience setting, and read the values back from the page before moving on.
 3. Advance through Video elements and Initial check without adding cards, end screens, subtitles, or other unrequested changes. Choose only the requested visibility on the Visibility step, then save/publish.
 4. Record the Studio video link/ID shown by the upload flow. If Studio says checks or processing are pending, do not claim it is Public merely because Public was selected.
-5. Reload the exact Studio details page and prove the persisted title, description, audience, and effective visibility. For a Public request, also prove the public watch page plays: a usable watch page, a finite video duration, `readyState >= 2`, and no unavailable/removed error. Poll pending processing rather than re-uploading.
+5. Reload the exact Studio details page and prove the persisted title, description, audience, and effective visibility. For a Public request, also prove the public watch page plays with `scripts/youtube_studio_cdp.py watch VIDEO_ID` (exit 0 = a usable watch page, a finite video duration, `readyState >= 2`, playback advancing, and no unavailable/removed error; it uses its own background tab and closes it). Poll pending processing rather than re-uploading.
 6. Write a concise publication record outside the skill repository: local file path and hash, requested/persisted metadata, video ID/URLs, requested/effective visibility, and timestamped verification results.
 
 ## Failure handling
@@ -30,4 +30,4 @@ Publish one already-approved local video at a time using the authenticated brows
 - Stop and report a blocker when the authenticated Studio tab is unavailable, file selection fails, account/channel differs from the requested one, the persisted metadata differs, Public does not become effective, or the watch page cannot play.
 - Do not use private cookies, tokens, profile data, or CDP dumps as output or commit them to this skill/repository.
 
-Read [the CDP protocol](references/cdp-protocol.md) before using the scripts. Use `scripts/youtube_studio_cdp.py` for deterministic CDP evaluation and file attachment.
+Read [the CDP protocol](references/cdp-protocol.md) before using the scripts. Use `scripts/youtube_studio_cdp.py` for deterministic CDP evaluation (`eval`), file attachment (`attach`) and public-playback proof (`watch`).
